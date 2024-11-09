@@ -1,38 +1,116 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f3f3f3;
-  }
+  font-family: Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  transition: background-color 2s ease;
+}
   
-  .contenedor {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+.contenedor {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
   
-  h1 {
-    color: #333333;
-  }
+h1 {
+  color: #333333;
+}
   
-  input[type="text"] {
-    padding: 10px;
-    font-size: 16px;
-    width: 70%;
-  }
+input[type="text"] {
+  padding: 10px;
+  font-size: 16px;
+  width: 70%;
+}
   
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  #datosClima {
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+#datosClima {
     margin-top: 20px;
     font-size: 18px;
-  }
+}
   
+
+/*Animacion de las nubes*/
+
+.sky {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/*Nubes comunes*/
+
+.cloud {
+  position: absolute;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  opacity: 0.8;
+}
+
+.cloud-1 {
+  width: 200px;
+  height: 120px;
+  top: 20%;
+  left: -200px;
+  animation: moveCloud 15s linear infinite;
+}
+
+.cloud-2 {
+  width: 250px;
+  height: 150px;
+  top: 40%;
+  left: -300px;
+  animation: moveCloud 20s linear infinite;
+}
+
+.cloud-3 {
+  width: 180px;
+  height: 110px;
+  top: 60%;
+  left: -250px;
+  animation: moveCloud 18s linear infinite;
+}
+
+
+/*Animacion de nubes*/
+@keyframes moveCloud{
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(100vw);
+  }
+}
+
+/*Clima soleado: pocas nubes*/
+.sunny .cloud {
+  opacity: 0.2;
+  animation: moveCloud 25s linear infinite;
+}
+
+/*Clima nublado: menos visibilidad*/
+.cloudy .cloud {
+  opacity: 0.8;
+  animation: moveCloud 15s linear infinite;
+}
+
+/*Clima lluvioso: nubes densas y movimieto mas lento*/
+
+.rainy .cloud {
+  opacity: 0.6;
+  animation: moveCloud 20s linear infinite;
+}
+

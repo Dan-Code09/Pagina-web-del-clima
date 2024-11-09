@@ -1,6 +1,6 @@
 let urlBase = 'https://api.openweathermap.org/data/2.5/weather'
 let api_key = '11b5ee262db4c31e1a6c01df75231f48'
-let difKelvin = 283.15
+let difKelvin = 273.15
 
 
 
@@ -20,7 +20,7 @@ function fetchDatosClima(ciudad){
 
 function mostrarDatosClima(data){
     const divDatosClima = document.getElementById('datosClima')
-    divDatosClima.innerHTML=''
+    divDatosClima.innerHTML='' //esta funcion limpia los datos del clima anterior
 
     const ciudadNombre = data.name
     const paisNombre = data.sys.country
@@ -28,6 +28,8 @@ function mostrarDatosClima(data){
     const humedad = data.main.humidity
     const descripcion = data.weather[0].description
     const icono = data.weather[0].icon
+    const sunrise = data.sys.sunrise * 1000;
+    const sunset = data.sys.sunset * 1000;
 
     const ciudadTitulo = document.createElement('h2')
     ciudadTitulo.textContent = `${ciudadNombre}, ${paisNombre}`
@@ -50,4 +52,40 @@ function mostrarDatosClima(data){
     divDatosClima.appendChild(iconoInfo)
     divDatosClima.appendChild(descripcionInfo)
 
+
+    cambiarColorFonfo(sunrise, sunset);
+
+
+    actualizarCielo(descripcion);
+}
+
+//Codigo para interactuar con el clima
+
+function cambiarColorFonfo(sunrise, sunset) {
+    const now = new Date().getTime();
+
+    if (now >= sunrise && now <= sunset) {
+        //es de dia
+        document.body.style.backgroundColor = "#87CEEB";
+    } else {
+        //es de noche
+        document.body.style.backgroundColor = "#2F4F4F";
+    }
+}
+
+
+
+// Función para actualizar el cielo
+// Función para actualizar el fondo y las animaciones de las nubes
+function actualizarCielo(descripcion) {
+    const sky = document.querySelector('.sky');
+    sky.classList.remove('cloudy', 'sunny', 'rainy');  // Elimina las clases previas
+
+    if (descripcion.includes('cloud')) {
+        sky.classList.add('cloudy');  // Nublado
+    } else if (descripcion.includes('clear')) {
+        sky.classList.add('sunny');   // Soleado
+    } else if (descripcion.includes('rain')) {
+        sky.classList.add('rainy');   // Lluvia
+    }
 }
